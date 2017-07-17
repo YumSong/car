@@ -18,7 +18,7 @@ public class CarApplicationTests {
 	private StringRedisTemplate stringRedisTemplate;
 
 	@Autowired
-	private RedisTemplate<String, User> redisTemplate;
+	private RedisTemplate<String, Object> redisTemplate;
 
 	@Test
 	public void contextLoads() {
@@ -47,8 +47,8 @@ public class CarApplicationTests {
 		user3.setAge(40);
 		redisTemplate.opsForValue().set(user3.getUserName(), user3);
 
-        Assert.assertEquals(20, redisTemplate.opsForValue().get("超人").getAge().longValue());
-        Assert.assertEquals(30, redisTemplate.opsForValue().get("蝙蝠侠").getAge().longValue());
-        Assert.assertEquals(40, redisTemplate.opsForValue().get("蜘蛛侠").getAge().longValue());
+        Assert.assertEquals(20, ((User)redisTemplate.opsForValue().get("超人")).getAge().longValue());
+        Assert.assertEquals(30, ((User)redisTemplate.opsForValue().get("蝙蝠侠")).getAge().longValue());
+        Assert.assertEquals(40, ((User)redisTemplate.opsForValue().get("蜘蛛侠")).getAge().longValue());
     }
 }
